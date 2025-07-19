@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/src/blog.css">
+    <style>
+        a {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <article class="px-4 py-8 font-sans">
+        <h1>Building a Habit Tracker with Laravel: A Beginner's Guide</h1>
+        <h2>Introduction</h2>
+        <p class="ds-markdown-paragraph">In today's fast-paced world, developing good habits is more important than
+            ever. Whether it's exercising regularly, reading daily, or practicing mindfulness, tracking our habits helps
+            us stay accountable and see our progress over time. That's why building a habit tracker app is not only a
+            great programming project but also a tool you can use in your personal development.</p>
+        <p class="ds-markdown-paragraph">In this tutorial, we'll walk through creating a basic habit tracker using
+            Laravel, one of the most popular PHP frameworks. This project is perfect for beginners who want to get
+            hands-on experience with:</p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph">Laravel fundamentals</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">MVC (Model-View-Controller) architecture</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Database migrations</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Basic CRUD (Create, Read, Update, Delete) operations</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Routing in Laravel</p>
+            </li>
+        </ul>
+
+        <a data-router-link="habit-tracker-app-fun-facts">
+            <p class="text-cyan-300 italic">
+                Fun Facts
+            </p>
+        </a>
+
+        <h2>Why Build a Habit Tracker?</h2>
+        <ol start="1">
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Practical Application</strong>: Unlike abstract exercises,
+                    you'll build something you can actually use</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Fundamental Concepts</strong>: Covers core web development
+                    concepts in a manageable project</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Scalability</strong>: You can easily add more features as you
+                    learn</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Portfolio Piece</strong>: Demonstrates real-world skills to
+                    potential employers</p>
+            </li>
+        </ol>
+        <h2>Prerequisites</h2>
+        <p class="ds-markdown-paragraph">Before we begin, make sure you have:</p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph">PHP (7.4 or higher) installed</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Composer installed</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Basic knowledge of PHP and HTML</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Laravel installed (we'll cover this in setup)</p>
+            </li>
+        </ul>
+        <h2>Setting Up the Project</h2>
+        <p class="ds-markdown-paragraph">First, let's create a new Laravel project:</p>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">bash</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token function">composer</span> create-project laravel/laravel habit-tracker
+<span class="token builtin class-name">cd</span> habit-tracker</pre>
+        </div>
+        <h2>Understanding the Code Structure</h2>
+        <p class="ds-markdown-paragraph">Our habit tracker has three main components:</p>
+        <ol start="1">
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Model</strong>:&nbsp;<code>Habit.php</code>&nbsp;(represents
+                    our data structure)</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">
+                    <strong>Controller</strong>:&nbsp;<code>HabitController.php</code>&nbsp;(handles business logic)</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">
+                    <strong>Views</strong>:&nbsp;<code>habit-index.blade.php</code>&nbsp;and&nbsp;<code>habit-submit.blade.php</code>&nbsp;(user
+                    interface)</p>
+            </li>
+        </ol>
+        <h2>Step 1: Database Migration</h2>
+        <p class="ds-markdown-paragraph">First, we need to set up our database structure. Laravel uses migrations to
+            manage database schemas. Here's our migration file:</p>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">php</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">// database/migrations/xxxx_xx_xx_create_habits_table.php</span>
+
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Database<span class="token punctuation">\</span>Migrations<span class="token punctuation">\</span>Migration</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Database<span class="token punctuation">\</span>Schema<span class="token punctuation">\</span>Blueprint</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Support<span class="token punctuation">\</span>Facades<span class="token punctuation">\</span>Schema</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">CreateHabitsTable</span> <span class="token keyword">extends</span> <span class="token class-name">Migration</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">up</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
+    <span class="token punctuation">{</span>
+        <span class="token class-name static-context">Schema</span><span class="token operator">::</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habits'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token class-name type-declaration">Blueprint</span> <span class="token variable">$table</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token keyword type-declaration">string</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'description'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">nullable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">boolean</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'completed_today'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">default</span><span class="token punctuation">(</span><span class="token constant boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">decimal</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'completion_percentage'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">default</span><span class="token punctuation">(</span><span class="token number">0.00</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">integer</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'current_streak'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">default</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">enum</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'frequency'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string single-quoted-string">'daily'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'weekly'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'monthly'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">timestamps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">down</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
+    <span class="token punctuation">{</span>
+        <span class="token class-name static-context">Schema</span><span class="token operator">::</span><span class="token function">dropIfExists</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habits'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <h3>Migration Explanation:</h3>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph"><code>id()</code>: Auto-incrementing primary key</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><code>name</code>: The name of the habit (e.g., "Morning Run")</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><code>description</code>: More details about the habit</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><code>completed_today</code>: Tracks if the habit was done today</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><code>completion_percentage</code>: Tracks overall completion rate</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><code>current_streak</code>: How many consecutive days/weeks/months the
+                    habit has been maintained</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><code>frequency</code>: How often the habit should be performed</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><code>timestamps()</code>: Automatically
+                    adds&nbsp;<code>created_at</code>&nbsp;and&nbsp;<code>updated_at</code>&nbsp;columns</p>
+            </li>
+        </ul>
+        <p class="ds-markdown-paragraph">Run the migration with:</p>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">bash</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre>php artisan migrate</pre>
+        </div>
+        <h2>Step 2: Creating the Model</h2>
+        <p class="ds-markdown-paragraph">Laravel will automatically create a model when we generate the migration, but
+            let's look at it:</p>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">php</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">// app/Models/Habit.php</span>
+
+<span class="token keyword">namespace</span> <span class="token package">App<span class="token punctuation">\</span>Models</span><span class="token punctuation">;</span>
+
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Database<span class="token punctuation">\</span>Eloquent<span class="token punctuation">\</span>Factories<span class="token punctuation">\</span>HasFactory</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Database<span class="token punctuation">\</span>Eloquent<span class="token punctuation">\</span>Model</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">Habit</span> <span class="token keyword">extends</span> <span class="token class-name">Model</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">use</span> <span class="token package">HasFactory</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">protected</span> <span class="token variable">$fillable</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token string single-quoted-string">'name'</span><span class="token punctuation">,</span> 
+        <span class="token string single-quoted-string">'description'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'completed_today'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'completion_percentage'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'current_streak'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'frequency'</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <p class="ds-markdown-paragraph">The&nbsp;<code>$fillable</code>&nbsp;array specifies which fields can be
+            mass-assigned, important for security.</p>
+        <h2>Step 3: The Habit Controller</h2>
+        <p class="ds-markdown-paragraph">Now, let's examine the controller that handles our application logic:</p>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">php</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">// app/Http/Controllers/HabitController.php</span>
+
+<span class="token keyword">namespace</span> <span class="token package">App<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Controllers</span><span class="token punctuation">;</span>
+
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Request</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>Models<span class="token punctuation">\</span>Habit</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">HabitController</span> <span class="token keyword">extends</span> <span class="token class-name">Controller</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Display all habits</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$habits</span> <span class="token operator">=</span> <span class="token class-name static-context">Habit</span><span class="token operator">::</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">view</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habit-index'</span><span class="token punctuation">,</span> <span class="token function">compact</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habits'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Show the form to create a new habit</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">submit_view</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">view</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habit-submit'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Store a new habit</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">submit</span><span class="token punctuation">(</span><span class="token class-name type-declaration">Request</span> <span class="token variable">$request</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token variable">$request</span><span class="token operator">-&gt;</span><span class="token function">validate</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+            <span class="token string single-quoted-string">'name'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'required'</span><span class="token punctuation">,</span>
+            <span class="token string single-quoted-string">'description'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'required'</span>
+        <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name static-context">Habit</span><span class="token operator">::</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">redirect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">route</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine.index'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">with</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'success'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'New Record Added Successfully!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <h3>Controller Methods Explained:</h3>
+        <ol start="1">
+            <li>
+                <p class="ds-markdown-paragraph"><strong>index()</strong>:</p>
+                <ul>
+                    <li>
+                        <p class="ds-markdown-paragraph">Fetches all habits from the database
+                            using&nbsp;<code>Habit::all()</code></p>
+                    </li>
+                    <li>
+                        <p class="ds-markdown-paragraph">Passes them to the&nbsp;<code>habit-index</code>&nbsp;view</p>
+                    </li>
+                    <li>
+                        <p class="ds-markdown-paragraph">Uses Laravel's compact() function to pass data to the view</p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>submit_view()</strong>:</p>
+                <ul>
+                    <li>
+                        <p class="ds-markdown-paragraph">Simply returns the view with the habit creation form</p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>submit()</strong>:</p>
+                <ul>
+                    <li>
+                        <p class="ds-markdown-paragraph">Validates the incoming request data</p>
+                    </li>
+                    <li>
+                        <p class="ds-markdown-paragraph">Creates a new habit record in the database</p>
+                    </li>
+                    <li>
+                        <p class="ds-markdown-paragraph">Redirects back to the index page with a success message</p>
+                    </li>
+                </ul>
+            </li>
+        </ol>
+        <h2>Step 4: Setting Up Routes</h2>
+        <p class="ds-markdown-paragraph">Routes define how URLs map to controller methods. Here are our routes:</p>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">php</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">// routes/web.php</span>
+
+<span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Controllers<span class="token punctuation">\</span>HabitController</span><span class="token punctuation">;</span>
+
+<span class="token class-name static-context">Route</span><span class="token operator">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine-index'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token class-name static-context">HabitController</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'index'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+       <span class="token operator">-&gt;</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine.index'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name static-context">Route</span><span class="token operator">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'new-habbit'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token class-name static-context">HabitController</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'submit_view'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+       <span class="token operator">-&gt;</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine.submit.view'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name static-context">Route</span><span class="token operator">::</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'new-habbit'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token class-name static-context">HabitController</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+       <span class="token operator">-&gt;</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine.submit'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre>
+        </div>
+        <h3>Route Explanation:</h3>
+        <ol start="1">
+            <li>
+                <p class="ds-markdown-paragraph"><strong>GET /routine-index</strong>:</p>
+                <ul>
+                    <li>
+                        <p class="ds-markdown-paragraph">Maps to&nbsp;<code>index()</code>&nbsp;method</p>
+                    </li>
+                    <li>
+                        <p class="ds-markdown-paragraph">Shows all habits</p>
+                    </li>
+                    <li>
+                        <p class="ds-markdown-paragraph">Named&nbsp;<code>routine.index</code>&nbsp;for easy reference
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>GET /new-habbit</strong>:</p>
+                <ul>
+                    <li>
+                        <p class="ds-markdown-paragraph">Shows the habit creation form</p>
+                    </li>
+                    <li>
+                        <p class="ds-markdown-paragraph">Named&nbsp;<code>routine.submit.view</code></p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>POST /new-habbit</strong>:</p>
+                <ul>
+                    <li>
+                        <p class="ds-markdown-paragraph">Handles form submission</p>
+                    </li>
+                    <li>
+                        <p class="ds-markdown-paragraph">Processes data via&nbsp;<code>submit()</code>&nbsp;method</p>
+                    </li>
+                    <li>
+                        <p class="ds-markdown-paragraph">Named&nbsp;<code>routine.submit</code></p>
+                    </li>
+                </ul>
+            </li>
+        </ol>
+        <h2>Step 5: Creating Views</h2>
+        <p class="ds-markdown-paragraph">Views handle the presentation layer. Let's create two views:</p>
+        <h3>1. habit-index.blade.php (Main Listing)</h3>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">html</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">&lt;!-- resources/views/habit-index.blade.php --&gt;</span>
+
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>My Habit Tracker<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css<span class="token punctuation">"</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container mt-5<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>My Habits<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+        
+        @if(session('success'))
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>alert alert-success<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                {{ session('success') }}
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        @endif
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{{ route('routine.submit.view') }}<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>btn btn-primary mb-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Add New Habit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>table<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thead</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Description<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Frequency<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Streak<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Completed Today<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>thead</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tbody</span><span class="token punctuation">&gt;</span></span>
+                @foreach($habits as $habit)
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ $habit-&gt;name }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ $habit-&gt;description }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ ucfirst($habit-&gt;frequency) }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ $habit-&gt;current_streak }} days<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ $habit-&gt;completed_today ? 'Yes' : 'No' }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+                @endforeach
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tbody</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></pre>
+        </div>
+        <h3>2. habit-submit.blade.php (Create Form)</h3>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">html</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">&lt;!-- resources/views/habit-submit.blade.php --&gt;</span>
+
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Add New Habit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css<span class="token punctuation">"</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container mt-5<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Add New Habit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+        
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>POST<span class="token punctuation">"</span></span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{{ route('routine.submit') }}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            @csrf
+            
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mb-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-label<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Habit Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-control<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">required</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mb-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>description<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-label<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Description<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>textarea</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-control<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>description<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>description<span class="token punctuation">"</span></span> <span class="token attr-name">rows</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span> <span class="token attr-name">required</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>textarea</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mb-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>frequency<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-label<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Frequency<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-select<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>frequency<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>frequency<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>daily<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Daily<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>weekly<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Weekly<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>monthly<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Monthly<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>btn btn-primary<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Save Habit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></pre>
+        </div>
+        <h2>Running the Application</h2>
+        <p class="ds-markdown-paragraph">Start the development server:</p>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">bash</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre>php artisan serve</pre>
+        </div>
+        <p class="ds-markdown-paragraph">Then visit:</p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph"><a href="http://localhost:8000/routine-index" target="_blank"
+                        rel="noreferrer">http://localhost:8000/routine-index</a>&nbsp;to see your habits</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><a href="http://localhost:8000/new-habbit" target="_blank"
+                        rel="noreferrer">http://localhost:8000/new-habbit</a>&nbsp;to add a new habit</p>
+            </li>
+        </ul>
+        <h2>Next Steps for Improvement</h2>
+        <p class="ds-markdown-paragraph">Now that you have a basic habit tracker, here are some features you could add:
+        </p>
+        <ol start="1">
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Mark habits as completed</strong>: Add a button to
+                    toggle&nbsp;<code>completed_today</code></p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Edit/Delete functionality</strong>: Allow modifying or removing
+                    habits</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>User authentication</strong>: Let users have their own habit
+                    lists</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Statistics</strong>: Show progress charts over time</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Reminders</strong>: Send email/SMS reminders for habits</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Streak tracking</strong>: Automatically calculate and update
+                    streaks</p>
+            </li>
+        </ol>
+        <h2>Full Source Code</h2>
+        <p class="ds-markdown-paragraph">Here's the complete code for our habit tracker:</p>
+        <h3>1. Migration</h3>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">php</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">// database/migrations/xxxx_xx_xx_create_habits_table.php</span>
+
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Database<span class="token punctuation">\</span>Migrations<span class="token punctuation">\</span>Migration</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Database<span class="token punctuation">\</span>Schema<span class="token punctuation">\</span>Blueprint</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Support<span class="token punctuation">\</span>Facades<span class="token punctuation">\</span>Schema</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">CreateHabitsTable</span> <span class="token keyword">extends</span> <span class="token class-name">Migration</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">up</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
+    <span class="token punctuation">{</span>
+        <span class="token class-name static-context">Schema</span><span class="token operator">::</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habits'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token class-name type-declaration">Blueprint</span> <span class="token variable">$table</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token keyword type-declaration">string</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'description'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">nullable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">boolean</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'completed_today'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">default</span><span class="token punctuation">(</span><span class="token constant boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">decimal</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'completion_percentage'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">default</span><span class="token punctuation">(</span><span class="token number">0.00</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">integer</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'current_streak'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">default</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">enum</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'frequency'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string single-quoted-string">'daily'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'weekly'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'monthly'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$table</span><span class="token operator">-&gt;</span><span class="token function">timestamps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">down</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword return-type">void</span>
+    <span class="token punctuation">{</span>
+        <span class="token class-name static-context">Schema</span><span class="token operator">::</span><span class="token function">dropIfExists</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habits'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <h3>2. Model</h3>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">php</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">// app/Models/Habit.php</span>
+
+<span class="token keyword">namespace</span> <span class="token package">App<span class="token punctuation">\</span>Models</span><span class="token punctuation">;</span>
+
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Database<span class="token punctuation">\</span>Eloquent<span class="token punctuation">\</span>Factories<span class="token punctuation">\</span>HasFactory</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Database<span class="token punctuation">\</span>Eloquent<span class="token punctuation">\</span>Model</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">Habit</span> <span class="token keyword">extends</span> <span class="token class-name">Model</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">use</span> <span class="token package">HasFactory</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">protected</span> <span class="token variable">$fillable</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token string single-quoted-string">'name'</span><span class="token punctuation">,</span> 
+        <span class="token string single-quoted-string">'description'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'completed_today'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'completion_percentage'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'current_streak'</span><span class="token punctuation">,</span>
+        <span class="token string single-quoted-string">'frequency'</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <h3>3. Controller</h3>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">php</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">// app/Http/Controllers/HabitController.php</span>
+
+<span class="token keyword">namespace</span> <span class="token package">App<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Controllers</span><span class="token punctuation">;</span>
+
+<span class="token keyword">use</span> <span class="token package">Illuminate<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Request</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>Models<span class="token punctuation">\</span>Habit</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">HabitController</span> <span class="token keyword">extends</span> <span class="token class-name">Controller</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$habits</span> <span class="token operator">=</span> <span class="token class-name static-context">Habit</span><span class="token operator">::</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">view</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habit-index'</span><span class="token punctuation">,</span> <span class="token function">compact</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habits'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">submit_view</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">view</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habit-submit'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">submit</span><span class="token punctuation">(</span><span class="token class-name type-declaration">Request</span> <span class="token variable">$request</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token variable">$request</span><span class="token operator">-&gt;</span><span class="token function">validate</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+            <span class="token string single-quoted-string">'name'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'required'</span><span class="token punctuation">,</span>
+            <span class="token string single-quoted-string">'description'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'required'</span><span class="token punctuation">,</span>
+            <span class="token string single-quoted-string">'frequency'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'required|in:daily,weekly,monthly'</span>
+        <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name static-context">Habit</span><span class="token operator">::</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">redirect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">route</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine.index'</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">with</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'success'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'New Record Added Successfully!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <h3>4. Routes</h3>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">php</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">// routes/web.php</span>
+
+<span class="token keyword">use</span> <span class="token package">App<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Controllers<span class="token punctuation">\</span>HabitController</span><span class="token punctuation">;</span>
+
+<span class="token class-name static-context">Route</span><span class="token operator">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine-index'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token class-name static-context">HabitController</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'index'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+       <span class="token operator">-&gt;</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine.index'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name static-context">Route</span><span class="token operator">::</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'new-habbit'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token class-name static-context">HabitController</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'submit_view'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+       <span class="token operator">-&gt;</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine.submit.view'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name static-context">Route</span><span class="token operator">::</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'new-habbit'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token class-name static-context">HabitController</span><span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+       <span class="token operator">-&gt;</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'routine.submit'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre>
+        </div>
+        <h3>5. Views</h3>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">html</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">&lt;!-- resources/views/habit-index.blade.php --&gt;</span>
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>My Habit Tracker<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css<span class="token punctuation">"</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container mt-5<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>My Habits<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+        
+        @if(session('success'))
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>alert alert-success<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                {{ session('success') }}
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        @endif
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{{ route('routine.submit.view') }}<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>btn btn-primary mb-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Add New Habit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>table<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thead</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Description<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Frequency<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Streak<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Completed Today<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>thead</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tbody</span><span class="token punctuation">&gt;</span></span>
+                @foreach($habits as $habit)
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ $habit-&gt;name }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ $habit-&gt;description }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ ucfirst($habit-&gt;frequency) }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ $habit-&gt;current_streak }} days<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span>{{ $habit-&gt;completed_today ? 'Yes' : 'No' }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+                @endforeach
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tbody</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></pre>
+        </div>
+        <div class="md-code-block md-code-block-light">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">html</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token comment">&lt;!-- resources/views/habit-submit.blade.php --&gt;</span>
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Add New Habit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css<span class="token punctuation">"</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container mt-5<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Add New Habit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+        
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>POST<span class="token punctuation">"</span></span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{{ route('routine.submit') }}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            @csrf
+            
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mb-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-label<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Habit Name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-control<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">required</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mb-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>description<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-label<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Description<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>textarea</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-control<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>description<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>description<span class="token punctuation">"</span></span> <span class="token attr-name">rows</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>3<span class="token punctuation">"</span></span> <span class="token attr-name">required</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>textarea</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mb-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>frequency<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-label<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Frequency<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-select<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>frequency<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>frequency<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>daily<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Daily<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>weekly<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Weekly<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>monthly<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Monthly<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>btn btn-primary<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Save Habit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></pre>
+        </div>
+        <h2>Conclusion</h2>
+        <p class="ds-markdown-paragraph">Congratulations! You've just built a functional habit tracker with Laravel.
+            This project covers fundamental web development concepts while creating something practical you can use
+            every day.</p>
+        <p class="ds-markdown-paragraph">Remember, the best way to learn is by doing. Try expanding this application
+            with the suggested improvements or come up with your own features. Happy coding!</p>
+    </article>
+</body>
+
+</html>
