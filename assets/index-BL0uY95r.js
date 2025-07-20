@@ -527,12 +527,44 @@ class Data extends Model\r
     <meta charset="UTF-8">\r
     <meta name="viewport" content="width=device-width, initial-scale=1.0">\r
     <title>Document</title>\r
-    <link rel="stylesheet" href="/src/blog.css">\r
     <style>\r
+\r
         a {\r
             cursor: pointer;\r
         }\r
-    </style>\r
+\r
+    .hero-gradient {\r
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r
+    }\r
+\r
+    .code-block {\r
+        background: #2d2d2d;\r
+        border-left: 4px solid #667eea;\r
+    }\r
+\r
+    .feature-card:hover {\r
+        transform: translateY(-5px);\r
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);\r
+    }\r
+\r
+    .animate-float {\r
+        animation: float 6s ease-in-out infinite;\r
+    }\r
+\r
+    @keyframes float {\r
+        0% {\r
+            transform: translateY(0px);\r
+        }\r
+\r
+        50% {\r
+            transform: translateY(-20px);\r
+        }\r
+\r
+        100% {\r
+            transform: translateY(0px);\r
+        }\r
+    }\r
+</style>\r
 </head>\r
 \r
 <body>\r
@@ -1315,6 +1347,41 @@ class Data extends Model\r
     <meta name="viewport" content="width=device-width, initial-scale=1.0">\r
     <title>Document</title>\r
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">\r
+    <style>\r
+\r
+      a {cursor: pointer;}\r
+    .hero-gradient {\r
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r
+    }\r
+\r
+    .code-block {\r
+        background: #2d2d2d;\r
+        border-left: 4px solid #667eea;\r
+    }\r
+\r
+    .feature-card:hover {\r
+        transform: translateY(-5px);\r
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);\r
+    }\r
+\r
+    .animate-float {\r
+        animation: float 6s ease-in-out infinite;\r
+    }\r
+\r
+    @keyframes float {\r
+        0% {\r
+            transform: translateY(0px);\r
+        }\r
+\r
+        50% {\r
+            transform: translateY(-20px);\r
+        }\r
+\r
+        100% {\r
+            transform: translateY(0px);\r
+        }\r
+    }\r
+</style>\r
 </head>\r
 <body>\r
     <article class="max-w-4xl mx-auto px-4 py-8 font-sans bg-white rounded-xl shadow-sm">\r
@@ -1504,6 +1571,42 @@ class Data extends Model\r
     <meta name="viewport" content="width=device-width, initial-scale=1.0">\r
     <title>Document</title>\r
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">\r
+    <style>\r
+\r
+      a {cursor: pointer;}\r
+\r
+    .hero-gradient {\r
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r
+    }\r
+\r
+    .code-block {\r
+        background: #2d2d2d;\r
+        border-left: 4px solid #667eea;\r
+    }\r
+\r
+    .feature-card:hover {\r
+        transform: translateY(-5px);\r
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);\r
+    }\r
+\r
+    .animate-float {\r
+        animation: float 6s ease-in-out infinite;\r
+    }\r
+\r
+    @keyframes float {\r
+        0% {\r
+            transform: translateY(0px);\r
+        }\r
+\r
+        50% {\r
+            transform: translateY(-20px);\r
+        }\r
+\r
+        100% {\r
+            transform: translateY(0px);\r
+        }\r
+    }\r
+</style>\r
 </head>\r
 <body>\r
     <article class="max-w-4xl mx-auto px-4 py-8 font-sans bg-white rounded-xl shadow-sm">\r
@@ -1652,6 +1755,39 @@ class Data extends Model\r
     <meta name="viewport" content="width=device-width, initial-scale=1.0">\r
     <title>Document</title>\r
     <link rel="stylesheet" href="/src/blog.css">\r
+    <style>\r
+    .hero-gradient {\r
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r
+    }\r
+\r
+    .code-block {\r
+        background: #2d2d2d;\r
+        border-left: 4px solid #667eea;\r
+    }\r
+\r
+    .feature-card:hover {\r
+        transform: translateY(-5px);\r
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);\r
+    }\r
+\r
+    .animate-float {\r
+        animation: float 6s ease-in-out infinite;\r
+    }\r
+\r
+    @keyframes float {\r
+        0% {\r
+            transform: translateY(0px);\r
+        }\r
+\r
+        50% {\r
+            transform: translateY(-20px);\r
+        }\r
+\r
+        100% {\r
+            transform: translateY(0px);\r
+        }\r
+    }\r
+</style>\r
 </head>\r
 \r
 <body>\r
@@ -1995,6 +2131,39 @@ class Data extends Model\r
     <meta name="viewport" content="width=device-width, initial-scale=1.0">\r
     <title>Document</title>\r
     <link rel="stylesheet" href="/src/blog.css">\r
+    <style>\r
+    .hero-gradient {\r
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r
+    }\r
+\r
+    .code-block {\r
+        background: #2d2d2d;\r
+        border-left: 4px solid #667eea;\r
+    }\r
+\r
+    .feature-card:hover {\r
+        transform: translateY(-5px);\r
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);\r
+    }\r
+\r
+    .animate-float {\r
+        animation: float 6s ease-in-out infinite;\r
+    }\r
+\r
+    @keyframes float {\r
+        0% {\r
+            transform: translateY(0px);\r
+        }\r
+\r
+        50% {\r
+            transform: translateY(-20px);\r
+        }\r
+\r
+        100% {\r
+            transform: translateY(0px);\r
+        }\r
+    }\r
+</style>\r
 </head>\r
 <body>\r
     <article>\r
