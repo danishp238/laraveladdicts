@@ -101,7 +101,7 @@ import { gsap } from 'gsap';
 import Matter from 'matter-js';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import blogDescriptions from '/src/assets/blog-descriptions.json'
+import blogDescriptions from '/src/assets/blog-descriptions.js'
 import { useRouter } from 'vue-router'
 import Header from './Header.vue'
 

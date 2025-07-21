@@ -57,6 +57,22 @@ const htmlNavigation = ref(null)
 
 const relatedBlogs = computed(() => blog.value?.related || []);
 
+function injectAdsterra(containerId, adScriptUrl) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const script = document.createElement('script');
+  script.setAttribute('async', 'async');
+  script.setAttribute('data-cfasync', 'false');
+  script.src = adScriptUrl;
+  container.innerHTML = ''; // Clean before injecting
+  container.appendChild(script);
+}
+
+onMounted(() => {
+  injectAdsterra('left-ad', '//pl27221802.profitableratecpm.com/43bf5710712cfd4e79e986deeddd180c/invoke.js');
+  injectAdsterra('right-ad', '//pl27221802.profitableratecpm.com/43bf5710712cfd4e79e986deeddd180c/invoke.js');
+});
+
 
 
 </script>
@@ -64,14 +80,21 @@ const relatedBlogs = computed(() => blog.value?.related || []);
 <template>
 
   <Header></Header>
+<div class="flex justify-center pt-20 gap-6">
+  <!-- Left Ad -->
+  <div id="left-ad" class="hidden lg:block w-1/6"></div>
 
-  <div v-if="blog" class="overflow-hidden pt-20">
-    <img :src="blog.image" alt="Cover Image" class="mx-auto" />
-    <div v-html="blog.content" ref="htmlNavigation" class="w-1/2 mx-auto"></div>
+  <!-- Blog Content -->
+  <div class="w-full max-w-3xl">
+    <!-- your existing blog content -->
+    <img :src="blog.image" alt="Cover Image" class="mx-auto mb-4" />
+    <div v-html="blog.content" ref="htmlNavigation"></div>
   </div>
-  <div v-else>
-    <p>Blog not found.</p>
-  </div>
+
+  <!-- Right Ad -->
+  <div id="right-ad" class="hidden lg:block w-1/6"></div>
+</div>
+
 
   <div v-if="relatedBlogs.length" class="mt-20 border-t border-white/20 pt-10">
   <h2 class="text-2xl font-semibold text-white text-center mb-6">

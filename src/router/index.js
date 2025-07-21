@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHistory, createWebHashHistory } from "vue-router"
 import Main from "../components/Main.vue"
 import BuildingAPI from "../components/BuildingAPI.vue"
 import NProgress from 'nprogress'
@@ -11,7 +11,7 @@ import Resources from "../views/Resources.vue"
 NProgress.configure({ showSpinner: false })
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(),
     scrollBehavior(to, from, savedPosition) {
     // Always scroll to top on route change
     return { top: 0 }
