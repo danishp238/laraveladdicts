@@ -86,7 +86,7 @@
               <div class="bg-white p-6 rounded-xl shadow-lg h-full">
                 <h2 class="text-2xl font-semibold text-purple-800 mb-4">Where I Am Today</h2>
                 <p class="text-gray-700">
-                  Now, as a solo developer, I combine my passion for clean code with the power of Laravel to create meaningful web applications. Every project is an opportunity to learn, grow, and push the boundaries of what I can build.
+                  Now, as a solo developer, I combine my passion for clean code with the power of Laravel to create meaningful web applications. Every project is an opportunity to learn, grow, and push the boundaries of what I can build. Along with this website, I have also launched my blogspot that you can visit right now at <a href="https://larawell20.blogspot.com">Visit My Blogspot</a>
                 </p>
               </div>
             </div>
@@ -96,12 +96,7 @@
                    class="rounded-xl shadow-lg w-full h-64 object-cover">
             </div>
           </div>
-        </div>
-        
-        <div class="mt-16 text-center" data-aos="zoom-in">
-          <p class="text-xl text-indigo-800 font-medium">
-            The journey continues, one line of code at a time...
-          </p>
+          
         </div>
       </section>
     </main>

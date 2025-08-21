@@ -3,6 +3,7 @@ import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import blogs from '/src/assets/blogs.js'
 import Header from './Header.vue'
+import AdPlacement from './AdPlacement.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -49,21 +50,17 @@ const relatedBlogs = computed(() => blog.value?.related || [])
 </script>
 
 <template>
-  <Header />
+  <Header></Header>
 
   <!-- TOP AD -->
-  <div class="mb-4 w-full flex justify-center">
-    <iframe src="//pl27221802.profitableratecpm.com/43bf5710712cfd4e79e986deeddd180c/invoke.js"
-      style="width:728px;height:90px;border:none;overflow:hidden;" scrolling="no"></iframe>
-  </div>
+    <div class="mb-4 w-full flex justify-center">
+      <AdPlacement id="top-ad" />
+    </div>
 
   <div class="flex justify-center pt-8 gap-6">
     <!-- LEFT AD -->
     <div class="hidden lg:block w-1/6">
-      <iframe src="//pl27221802.profitableratecpm.com/43bf5710712cfd4e79e986deeddd180c/invoke.js"
-        style="width:160px;height:600px;border:none;overflow:hidden;" scrolling="no">
-        <div id="container-43bf5710712cfd4e79e986deeddd180c"></div>
-      </iframe>
+      <AdPlacement id="left-ad" />
     </div>
 
     <!-- BLOG CONTENT -->
@@ -72,8 +69,7 @@ const relatedBlogs = computed(() => blog.value?.related || [])
 
       <!-- UNDER IMAGE AD -->
       <div class="mb-6 flex justify-center">
-        <iframe src="//pl27221791.profitableratecpm.com/c9/f8/59/c9f859d113e0cbda5050b028559acb45.js"
-          style="width:728px;height:90px;border:none;overflow:hidden;" scrolling="no"></iframe>
+        <AdPlacement id="under-image-ad" />
       </div>
 
       <!-- Blog Content -->
@@ -81,8 +77,7 @@ const relatedBlogs = computed(() => blog.value?.related || [])
 
       <!-- MIDWAY AD -->
       <div class="my-8 flex justify-center">
-        <iframe src="//pl27221791.profitableratecpm.com/c9/f8/59/c9f859d113e0cbda5050b028559acb45.js"
-          style="width:728px;height:90px;border:none;overflow:hidden;" scrolling="no"></iframe>
+        <AdPlacement id="midway-ad" />
       </div>
 
       <!-- RELATED BLOGS -->
@@ -105,15 +100,13 @@ const relatedBlogs = computed(() => blog.value?.related || [])
 
       <!-- END AD -->
       <div class="mt-10 flex justify-center">
-        <iframe src="//www.highperformanceformat.com/805b0332d9cd78f6b74f2105755970ff/invoke.html"
-          style="width:728px;height:90px;border:none;overflow:hidden;" scrolling="no"></iframe>
+        <AdPlacement id="end-ad" />
       </div>
     </div>
 
     <!-- RIGHT AD -->
     <div class="hidden lg:block w-1/6">
-      <iframe src="//www.highperformanceformat.com/805b0332d9cd78f6b74f2105755970ff/invoke.html"
-        style="width:160px;height:600px;border:none;overflow:hidden;" scrolling="no"></iframe>
+      <AdPlacement id="right-ad" />
     </div>
   </div>
 

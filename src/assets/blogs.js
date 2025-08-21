@@ -5,6 +5,7 @@ import HabitDebugging from "./blogs/habit-tracker/debugging.html?raw"
 import HabitFun from "./blogs/habit-tracker/fun-facts.html?raw"
 import SaasApp_1 from "./blogs/saas-app/saasapp-1.html?raw"
 import LoginSystem from "./blogs/saas-app/login-system.html?raw"
+import LoginSystemFrontend from "./blogs/saas-app/login-system-frontend.html?raw"
 
 const blogs = [
   {
@@ -50,6 +51,13 @@ const blogs = [
         slug: 'saas-app-building-auth-system',
         image: `${import.meta.env.BASE_URL}images/login-system.jpeg`,
         content: LoginSystem
+      },
+
+      {
+        title: "🎨 Building a Stunning Vue.js Authentication Interface with Laravel Backend",
+        slug: "building-stunning-auth-system",
+        image: `${import.meta.env.BASE_URL}images/auth-system-frontend.png`,
+        content: LoginSystemFrontend
       }
     ],
   }
