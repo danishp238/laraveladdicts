@@ -3,7 +3,6 @@ import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import blogs from '/src/assets/blogs.js'
 import Header from './Header.vue'
-import AdPlacement from './AdPlacement.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -52,34 +51,17 @@ const relatedBlogs = computed(() => blog.value?.related || [])
 <template>
   <Header></Header>
 
-  <!-- TOP AD -->
-    <div class="mb-4 w-full flex justify-center">
-      <AdPlacement id="top-ad" />
-    </div>
-
-  <div class="flex justify-center pt-8 gap-6">
-    <!-- LEFT AD -->
-    <div class="hidden lg:block w-1/6">
-      <AdPlacement id="left-ad" />
-    </div>
-
     <!-- BLOG CONTENT -->
-    <div class="w-full max-w-3xl">
+    <div class="w-1/2 mx-auto pt-32">
       <img :src="blog.image" alt="Cover Image" class="mx-auto mb-4" />
-
-      <!-- UNDER IMAGE AD -->
-      <div class="mb-6 flex justify-center">
-        <AdPlacement id="under-image-ad" />
       </div>
 
       <!-- Blog Content -->
-      <div v-html="blog.content" ref="htmlNavigation"></div>
-
-      <!-- MIDWAY AD -->
-      <div class="my-8 flex justify-center">
-        <AdPlacement id="midway-ad" />
+      <!-- <div v-html="blog.content" ref="htmlNavigation"></div> -->
+      <div class="w-1/2 mx-auto pt-6">
+        <component v-if="blog.component" :is="blog.component" />
       </div>
-
+      
       <!-- RELATED BLOGS -->
       <div v-if="relatedBlogs.length" class="mt-20 border-t border-white/20 pt-10">
         <h2 class="text-2xl font-semibold text-white text-center mb-6">Must Reads for Those Who Enjoyed This Blog</h2>
@@ -97,18 +79,6 @@ const relatedBlogs = computed(() => blog.value?.related || [])
           </div>
         </div>
       </div>
-
-      <!-- END AD -->
-      <div class="mt-10 flex justify-center">
-        <AdPlacement id="end-ad" />
-      </div>
-    </div>
-
-    <!-- RIGHT AD -->
-    <div class="hidden lg:block w-1/6">
-      <AdPlacement id="right-ad" />
-    </div>
-  </div>
 
   <!-- MORE BLOGS -->
   <div class="mt-20 border-t border-white/20 pt-10">
@@ -128,9 +98,3 @@ const relatedBlogs = computed(() => blog.value?.related || [])
     </div>
   </div>
 </template>
-
-<style scoped>
-iframe {
-  max-width: 100%;
-}
-</style>

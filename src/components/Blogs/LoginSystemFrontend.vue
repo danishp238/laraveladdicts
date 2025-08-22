@@ -1,0 +1,711 @@
+<template>
+
+    <article>
+        <h1>🎨 Building a Stunning Vue.js Authentication Interface with Laravel Backend</h1>
+        <p class="ds-markdown-paragraph">Welcome to our hands-on guide where we'll transform your Laravel API into a
+            beautiful, functional SaaS application with Vue.js and Tailwind CSS. In this comprehensive tutorial, we'll
+            build an authentication system that's both visually appealing and technically robust.</p>
+        <h2>✨ Why Vue.js for Your SaaS Authentication?</h2>
+        <p class="ds-markdown-paragraph">Vue.js has become the go-to framework for modern web applications because of
+            its:</p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Reactive components</strong>&nbsp;that update seamlessly</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Gentle learning curve</strong>&nbsp;compared to other
+                    frameworks</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Excellent ecosystem</strong>&nbsp;with tools like Vue Router
+                    and Pinia</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Performance</strong>&nbsp;that competes with heavier frameworks
+                </p>
+            </li>
+        </ul>
+        <p class="ds-markdown-paragraph">When paired with Tailwind CSS, you get:</p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Rapid UI development</strong>&nbsp;with utility classes</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Customizable design system</strong>&nbsp;that grows with your
+                    app</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Responsive layouts</strong>&nbsp;out of the box</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Professional results</strong>&nbsp;without heavy CSS files</p>
+            </li>
+        </ul>
+        <h2>🏗️ Our Authentication System Architecture</h2>
+        <p class="ds-markdown-paragraph">Let's visualize how our components work together:</p>
+        <div class="md-code-block md-code-block-dark">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">text</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre>Laravel API (Backend)
+  &uarr; &darr;
+Axios HTTP Client
+  &uarr; &darr;
+Vue.js Components (Frontend)
+  &uarr; &darr;
+User Browser</pre>
+        </div>
+        <h2>🔑 The Authentication Flow</h2>
+        <ol start="1">
+            <li>
+                <p class="ds-markdown-paragraph"><strong>User visits login/register page</strong></p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Submits credentials through our Vue form</strong></p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Vue sends request to Laravel via Axios</strong></p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Laravel validates and responds with token</strong></p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Vue stores token and redirects to dashboard</strong></p>
+            </li>
+        </ol>
+        <h2>🎨 Building the Auth Interface</h2>
+        <h3>1. The Floating Icons Background</h3>
+        <p class="ds-markdown-paragraph">The visually striking floating icons in the background aren't just
+            decorative&mdash;they're an excellent example of advanced Vue techniques:</p>
+        <div class="md-code-block md-code-block-dark">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">html</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fixed inset-0 overflow-hidden pointer-events-none<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> 
+    <span class="token attr-name">v-for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>(icon, index) in icons<span class="token punctuation">"</span></span> 
+    <span class="token attr-name">:key</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>index<span class="token punctuation">"</span></span> 
+    <span class="token attr-name">:ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>el =&gt; { if (el) iconRefs[index] = el }<span class="token punctuation">"</span></span>
+    <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>absolute text-blue-400/70 text-4xl bg-white/5 rounded-full p-4 backdrop-blur-sm will-change-transform<span class="token punctuation">"</span></span>
+    <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>`icon-${index}`<span class="token punctuation">"</span></span>
+  <span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></pre>
+        </div>
+        <p class="ds-markdown-paragraph"><strong>Key Features:</strong></p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph"><code>pointer-events-none</code>: Allows clicks to pass through to the
+                    form below</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><code>backdrop-blur-sm</code>: Creates a subtle frosted glass effect
+                </p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><code>will-change-transform</code>: Optimizes animation performance</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">GSAP-powered animations for smooth movement</p>
+            </li>
+        </ul>
+        <p class="ds-markdown-paragraph"><strong>The Animation System:</strong></p>
+        <div class="md-code-block md-code-block-dark">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">javascript</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token function">onMounted</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Initialize animations for each icon</span>
+  icons<span class="token punctuation">.</span>value<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">_<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>iconRefs<span class="token punctuation">.</span>value<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">setupIconAnimation</span><span class="token punctuation">(</span>iconRefs<span class="token punctuation">.</span>value<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">,</span> index<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></pre>
+        </div>
+        <p class="ds-markdown-paragraph">This creates a dynamic, engaging background that doesn't interfere with
+            usability.</p>
+        <h3>2. The Tabbed Auth Interface</h3>
+        <p class="ds-markdown-paragraph">Our form uses a clean tab system to toggle between login and registration:</p>
+        <div class="md-code-block md-code-block-dark">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">html</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex border-b<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>activeTab = 'login'<span class="token punctuation">"</span></span> <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{
+    'text-blue-600 border-blue-600': activeTab === 'login',
+    'text-gray-500 hover:text-gray-700': activeTab !== 'login'
+  }<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex-1 py-4 px-6 text-center font-medium border-b-2 transition-colors<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    Login
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>activeTab = 'register'<span class="token punctuation">"</span></span> <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{
+    'text-blue-600 border-blue-600': activeTab === 'register',
+    'text-gray-500 hover:text-gray-700': activeTab !== 'register'
+  }<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex-1 py-4 px-6 text-center font-medium border-b-2 transition-colors<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    Register
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></pre>
+        </div>
+        <p class="ds-markdown-paragraph"><strong>UX Enhancements:</strong></p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph">Smooth transitions between states</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Clear visual indicators for the active tab</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Consistent spacing and padding</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Mobile-responsive design</p>
+            </li>
+        </ul>
+        <h3>3. The Login Form</h3>
+        <p class="ds-markdown-paragraph">Our login form includes all the modern best practices:</p>
+        <div class="md-code-block md-code-block-dark">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">html</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>activeTab === 'login'<span class="token punctuation">"</span></span> <span class="token attr-name">@submit.prevent</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>handleLogin<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>p-8 space-y-6<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>login-email<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>block text-sm font-medium text-gray-700 mb-1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Email<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>relative<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fas fa-envelope text-gray-400<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>login-email<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>loginForm.email<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span>
+        <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500<span class="token punctuation">"</span></span>
+        <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>you@example.com<span class="token punctuation">"</span></span> <span class="token attr-name">required</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- Password field with remember me --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mt-2 flex items-center justify-between<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex items-center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>remember-me<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>loginForm.remember<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span>
+        <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>remember-me<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ml-2 block text-sm text-gray-700<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Remember me<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-sm text-blue-600 hover:text-blue-500<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Forgot password?<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  
+  <span class="token comment">&lt;!-- Error handling --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>loginError<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-red-600<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>{{ loginError }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span>
+    <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    Sign in
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span></pre>
+        </div>
+        <h3>4. The Registration Form</h3>
+        <p class="ds-markdown-paragraph">The registration form collects essential user data with proper validation:</p>
+        <div class="md-code-block md-code-block-dark">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">html</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>activeTab === 'register'<span class="token punctuation">"</span></span> <span class="token attr-name">@submit.prevent</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>handleRegister<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>p-8 space-y-6<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!-- Name field --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>relative<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fas fa-user text-gray-400<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>register-name<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>registerForm.name<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span>
+      <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500<span class="token punctuation">"</span></span>
+      <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>John Doe<span class="token punctuation">"</span></span> <span class="token attr-name">required</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- Password requirements --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mt-1 text-xs text-gray-500<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>At least 8 characters<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  
+  <span class="token comment">&lt;!-- Terms agreement --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex items-center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>terms<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>registerForm.acceptTerms<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span>
+      <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded<span class="token punctuation">"</span></span> <span class="token attr-name">required</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>terms<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ml-2 block text-sm text-gray-700<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      I agree to the <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-blue-600 hover:text-blue-500<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Terms<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  
+  <span class="token comment">&lt;!-- Error handling --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>registerError<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-red-600<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>{{ registerError }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span></pre>
+        </div>
+        <h2>🔄 Handling Authentication in Vue</h2>
+        <p class="ds-markdown-paragraph">The real magic happens in our script section:</p>
+        <div class="md-code-block md-code-block-dark">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">javascript</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token keyword">import</span> <span class="token punctuation">{</span> ref <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> router <span class="token keyword">from</span> <span class="token string">'../router'</span>
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span>
+
+<span class="token comment">// Reactive state</span>
+<span class="token keyword">const</span> activeTab <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token string">'login'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> loginForm <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token literal-property property">password</span><span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> registerForm <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token literal-property property">password</span><span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> loginError <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> registerError <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+
+<span class="token comment">// Login handler</span>
+<span class="token keyword">const</span> <span class="token function-variable function">handleLogin</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> axios<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/api/login'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">email</span><span class="token operator">:</span> loginForm<span class="token punctuation">.</span>value<span class="token punctuation">.</span>email<span class="token punctuation">,</span>
+      <span class="token literal-property property">password</span><span class="token operator">:</span> loginForm<span class="token punctuation">.</span>value<span class="token punctuation">.</span>password
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">'token'</span><span class="token punctuation">,</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>token<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'dashboard'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    loginError<span class="token punctuation">.</span>value <span class="token operator">=</span> err<span class="token punctuation">.</span>response<span class="token operator">?.</span>data<span class="token operator">?.</span>message <span class="token operator">||</span> <span class="token string">'Login failed'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Registration handler</span>
+<span class="token keyword">const</span> <span class="token function-variable function">handleRegister</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> axios<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/api/register'</span><span class="token punctuation">,</span> registerForm<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+    localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">'token'</span><span class="token punctuation">,</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>token<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'dashboard'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    registerError<span class="token punctuation">.</span>value <span class="token operator">=</span> err<span class="token punctuation">.</span>response<span class="token operator">?.</span>data<span class="token operator">?.</span>message <span class="token operator">||</span> <span class="token string">'Registration failed'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <p class="ds-markdown-paragraph"><strong>Security Considerations:</strong></p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph">Tokens stored in localStorage (consider httpOnly cookies for
+                    production)</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Error messages don't reveal system information</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Password never logged or stored improperly</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">HTTPS required for all requests</p>
+            </li>
+        </ul>
+        <h2>🏡 The Dashboard Interface</h2>
+        <p class="ds-markdown-paragraph">After successful authentication, users see a clean dashboard:</p>
+        <div class="md-code-block md-code-block-dark">
+            <div class="md-code-block-banner-wrap">
+                <div class="md-code-block-banner md-code-block-banner-lite">
+                    <div class="_121d384">
+                        <div class="d2a24f03"><span class="d813de27">html</span></div>
+                        <div class="d2a24f03">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!-- Navigation Bar --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nav</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white shadow-sm<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>max-w-7xl mx-auto px-4 sm:px-6 lg:px-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex justify-between h-16 items-center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+          <span class="token comment">&lt;!-- Logo --&gt;</span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-xl font-bold text-indigo-600<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>ShopApp<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+          
+          <span class="token comment">&lt;!-- User Controls --&gt;</span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex items-center space-x-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token comment">&lt;!-- Credits Display --&gt;</span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex items-center bg-indigo-50 px-3 py-1 rounded-full<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-indigo-700 font-medium mr-1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>125<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>svg</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h-5 w-5 text-indigo-500<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>svg</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            
+            <span class="token comment">&lt;!-- User Dropdown --&gt;</span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>relative<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>toggleDropdown<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex items-center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">&gt;</span></span>U<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+              
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">v-show</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>isDropdownOpen<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dropdown-menu<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Your Profile<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Settings<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Sign out<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>nav</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token comment">&lt;!-- Product Grid --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-3xl font-bold text-gray-800 mb-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Available Products<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+      
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>grid grid-cols-1 md:grid-cols-3 gap-6<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token comment">&lt;!-- Product Cards --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>p-6<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h-40 bg-indigo-50 rounded-md flex items-center justify-center mb-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>svg</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h-20 w-20 text-indigo-400<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>svg</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-xl font-semibold text-gray-800 mb-2<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Premium Software<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-gray-600 mb-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Professional tools for your business needs.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex justify-between items-center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-lg font-bold text-indigo-600<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>50 credits<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                Purchase
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token comment">&lt;!-- More product cards... --&gt;</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>main</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span></pre>
+        </div>
+        <h2>🚀 Potential Enhancements</h2>
+        <p class="ds-markdown-paragraph">Take your authentication system to the next level with these improvements:</p>
+        <ol start="1">
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Password Strength Meter</strong></p>
+                <div class="md-code-block md-code-block-dark">
+                    <div class="md-code-block-banner-wrap">
+                        <div class="md-code-block-banner md-code-block-banner-lite">
+                            <div class="_121d384">
+                                <div class="d2a24f03"><span class="d813de27">javascript</span></div>
+                                <div class="d2a24f03">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <pre><span class="token keyword">const</span> passwordStrength <span class="token operator">=</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>registerForm<span class="token punctuation">.</span>value<span class="token punctuation">.</span>password<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0</span>
+  <span class="token keyword">let</span> strength <span class="token operator">=</span> <span class="token number">0</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>registerForm<span class="token punctuation">.</span>value<span class="token punctuation">.</span>password<span class="token punctuation">.</span>length <span class="token operator">&gt;=</span> <span class="token number">8</span><span class="token punctuation">)</span> strength <span class="token operator">+=</span> <span class="token number">1</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\d</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>registerForm<span class="token punctuation">.</span>value<span class="token punctuation">.</span>password<span class="token punctuation">)</span><span class="token punctuation">)</span> strength <span class="token operator">+=</span> <span class="token number">1</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[A-Z]</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>registerForm<span class="token punctuation">.</span>value<span class="token punctuation">.</span>password<span class="token punctuation">)</span><span class="token punctuation">)</span> strength <span class="token operator">+=</span> <span class="token number">1</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[^A-Za-z0-9]</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>registerForm<span class="token punctuation">.</span>value<span class="token punctuation">.</span>password<span class="token punctuation">)</span><span class="token punctuation">)</span> strength <span class="token operator">+=</span> <span class="token number">1</span>
+  <span class="token keyword">return</span> strength
+<span class="token punctuation">}</span><span class="token punctuation">)</span></pre>
+                </div>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Social Login Integration</strong></p>
+                <div class="md-code-block md-code-block-dark">
+                    <div class="md-code-block-banner-wrap">
+                        <div class="md-code-block-banner md-code-block-banner-lite">
+                            <div class="_121d384">
+                                <div class="d2a24f03"><span class="d813de27">javascript</span></div>
+                                <div class="d2a24f03">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <pre><span class="token keyword">const</span> <span class="token function-variable function">loginWithGoogle</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>href <span class="token operator">=</span> <span class="token string">'/api/auth/google'</span>
+<span class="token punctuation">}</span></pre>
+                </div>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Email Verification Flow</strong></p>
+                <div class="md-code-block md-code-block-dark">
+                    <div class="md-code-block-banner-wrap">
+                        <div class="md-code-block-banner md-code-block-banner-lite">
+                            <div class="_121d384">
+                                <div class="d2a24f03"><span class="d813de27">javascript</span></div>
+                                <div class="d2a24f03">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <pre><span class="token keyword">const</span> <span class="token function-variable function">sendVerificationEmail</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">await</span> axios<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/api/email/verification-notification'</span><span class="token punctuation">)</span>
+  <span class="token function">showToast</span><span class="token punctuation">(</span><span class="token string">'Verification email sent!'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></pre>
+                </div>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Two-Factor Authentication</strong></p>
+                <div class="md-code-block md-code-block-dark">
+                    <div class="md-code-block-banner-wrap">
+                        <div class="md-code-block-banner md-code-block-banner-lite">
+                            <div class="_121d384">
+                                <div class="d2a24f03"><span class="d813de27">javascript</span></div>
+                                <div class="d2a24f03">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <pre><span class="token keyword">const</span> <span class="token function-variable function">enable2FA</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> data <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> axios<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/api/two-factor-authentication'</span><span class="token punctuation">)</span>
+  <span class="token comment">// Show QR code to user</span>
+<span class="token punctuation">}</span></pre>
+                </div>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph"><strong>Session Management</strong></p>
+                <div class="md-code-block md-code-block-dark">
+                    <div class="md-code-block-banner-wrap">
+                        <div class="md-code-block-banner md-code-block-banner-lite">
+                            <div class="_121d384">
+                                <div class="d2a24f03"><span class="d813de27">javascript</span></div>
+                                <div class="d2a24f03">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <pre><span class="token keyword">const</span> <span class="token function-variable function">logoutOtherDevices</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">await</span> axios<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/api/logout-other-devices'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></pre>
+                </div>
+            </li>
+        </ol>
+        <h2>📱 Mobile Responsiveness</h2>
+        <p class="ds-markdown-paragraph">Our design already includes responsive elements:</p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph">Flexbox and grid layouts that adapt</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Appropriate padding and spacing</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Touch-friendly form elements</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Mobile-first media queries</p>
+            </li>
+        </ul>
+        <h2>🔒 Security Best Practices</h2>
+        <ol start="1">
+            <li>
+                <p class="ds-markdown-paragraph">Always use HTTPS in production</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Implement CSRF protection</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Rate limit authentication endpoints</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Use secure, HttpOnly cookies for production</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Regularly update dependencies</p>
+            </li>
+        </ol>
+        <h2>🎉 Conclusion</h2>
+        <p class="ds-markdown-paragraph">You've now built a complete authentication system with:</p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph">Beautiful, animated UI components</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Secure API communication</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Proper state management</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Error handling</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Responsive design</p>
+            </li>
+        </ul>
+        <p class="ds-markdown-paragraph">This foundation supports countless SaaS applications. In our next tutorial,
+            we'll dive deeper into:</p>
+        <ul>
+            <li>
+                <p class="ds-markdown-paragraph">Role-based access control</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Subscription management</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Advanced dashboard features</p>
+            </li>
+            <li>
+                <p class="ds-markdown-paragraph">Performance optimization</p>
+            </li>
+        </ul>
+        <p class="ds-markdown-paragraph">What authentication features would you like to see next?</p>
+    </article>
+</template>
+
+<style scoped>
+.hero-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.code-block {
+    background: #2d2d2d;
+    border-left: 4px solid #667eea;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    margin: 1.5rem 0 1rem;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background-image: linear-gradient(to right, #8d7cb4, #38b2ac);
+}
+
+h2 {
+    font-size: 2rem;
+    background-image: linear-gradient(to right, #9582c2, #4fd1c5);
+}
+
+h3 {
+    font-size: 1.75rem;
+    background-image: linear-gradient(to right, #2f008b, #68d391);
+}
+
+/* List styles */
+ul,
+ol {
+    padding-left: 2rem;
+    margin: 1rem 0;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+/* Link styles */
+a {
+    color: #6b46c1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #38b2ac;
+}
+
+/* Button styles */
+.button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(to right, #6b46c1, #38b2ac);
+    color: white;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background: linear-gradient(to right, #805ad5, #4fd1c5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Container styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Card styles */
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+</style>
