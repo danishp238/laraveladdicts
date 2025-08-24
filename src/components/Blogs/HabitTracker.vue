@@ -1,4 +1,11 @@
+<script setup>
+    import AdComponent from '../AdComponent.vue'
+</script>
+
 <template>
+
+    <AdComponent width="full" height="32" />
+
     <article class="px-4 py-8 font-sans">
         <h1>Building a Habit Tracker with Laravel: A Beginner's Guide</h1>
         <h2>Introduction</h2>
@@ -52,6 +59,9 @@
                     potential employers</p>
             </li>
         </ol>
+
+        <AdComponent width="full" height="32" />
+
         <h2>Prerequisites</h2>
         <p class="ds-markdown-paragraph">Before we begin, make sure you have:</p>
         <ul>
@@ -141,6 +151,7 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></pre>
         </div>
+        <AdComponent width="full" height="32" />
         <h3>Migration Explanation:</h3>
         <ul>
             <li>
@@ -247,6 +258,8 @@
     <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">submit_view</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> <span class="token function">view</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'habit-submit'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+
+    <AdComponent width="full" height="32" />
 
     <span class="token comment">// Store a new habit</span>
     <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">submit</span><span class="token punctuation">(</span><span class="token class-name type-declaration">Request</span> <span class="token variable">$request</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -611,6 +624,8 @@
     <span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></pre>
         </div>
+
+        <AdComponent width="full" height="32" />
         <h3>3. Controller</h3>
         <div class="md-code-block md-code-block-light">
             <div class="md-code-block-banner-wrap">
@@ -789,8 +804,10 @@
         <p class="ds-markdown-paragraph">Congratulations! You've just built a functional habit tracker with Laravel.
             This project covers fundamental web development concepts while creating something practical you can use
             every day.</p>
-        <p class="ds-markdown-paragraph">Remember, the best way to learn is by doing. Try expanding this application
+        <p class="ds-markdown-paragraph mb-8">Remember, the best way to learn is by doing. Try expanding this application
             with the suggested improvements or come up with your own features. Happy coding!</p>
+
+            <AdComponent width="full" height="32" />
     </article>
 </template>
 

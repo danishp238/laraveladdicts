@@ -1,4 +1,9 @@
+<script setup>
+    import AdComponent from '../AdComponent.vue'
+</script>
+
 <template>
+    <AdComponent width="full" height="32" />
     <article>
         <h1>🔐 Building a Secure Authentication System in Laravel: From Routes to Tokens</h1>
         <p class="ds-markdown-paragraph">Welcome back, Laravel warriors! In our last installment, we set up our core
@@ -38,6 +43,7 @@
         </div>
         <p class="ds-markdown-paragraph">Let's break down each component with code explanations.</p>
         <h2>1. User Registration: Welcoming New Users</h2>
+        <AdComponent width="full" height="32" />
         <h3>The Registration Endpoint</h3>
         <div class="md-code-block md-code-block-dark">
             <div class="md-code-block-banner-wrap">
@@ -90,6 +96,7 @@
         <p class="ds-markdown-paragraph"><strong>Pro Tip:</strong>&nbsp;Consider adding email verification right at
             registration by generating and sending a verification token.</p>
         <h2>2. User Login: Secure Access Control</h2>
+        <AdComponent width="full" height="32" />
         <h3>The Login Endpoint</h3>
         <div class="md-code-block md-code-block-dark">
             <div class="md-code-block-banner-wrap">
@@ -209,6 +216,7 @@
             </li>
         </ul>
         <h2>🛡️ Security Best Practices We've Implemented</h2>
+        <AdComponent width="full" height="32" />
         <ol start="1">
             <li>
                 <p class="ds-markdown-paragraph"><strong>Password Hashing</strong>: Never store plain text passwords</p>
@@ -315,6 +323,7 @@
             one line at a time. Stay tuned for our Vue.js frontend integration!</p>
         <p class="ds-markdown-paragraph">[Next up: Building a Stunning Vue.js Auth Interface &rarr;]</p>
     </article>
+    <AdComponent width="full" height="32" />
 </template>
 
 <style scoped>

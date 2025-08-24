@@ -1,4 +1,10 @@
+<script setup>
+  import AdComponent from '../AdComponent.vue'
+</script>
+
 <template>
+  <AdComponent width="full" height="32" />
+
     <article class="max-w-4xl mx-auto px-4 py-8 font-sans bg-white rounded-xl shadow-sm">
   <!-- Intro -->
   <div class="prose prose-orange max-w-none mb-12">
@@ -68,6 +74,7 @@
       </div>
     </div>
   </div>
+  <AdComponent width="full" height="32" />
 
   <!-- Fact 5 -->
   <div class="bg-red-50 rounded-xl p-6 mb-12 border-l-4 border-red-400">
@@ -117,6 +124,7 @@
       Track Your First Habit Now
     </button>
   </div>
+  <AdComponent width="full" height="32" />
 </article>
 </template>
 

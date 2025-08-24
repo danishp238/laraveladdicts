@@ -1,4 +1,11 @@
+<script setup>
+    import AdComponent from '../AdComponent.vue'
+</script>
+
 <template>
+
+    <AdComponent width="full" height="32" />
+
     <h1>🚀 Building a SaaS Backend with Laravel: Crafting Robust Models &amp; Relationships</h1>
     <p class="ds-markdown-paragraph">Welcome, Laravel enthusiasts! Today we're kicking off an exciting journey to build
         a full-stack SaaS application using Vue.js, Tailwind CSS, and Laravel. We're starting with the backend first
@@ -106,6 +113,7 @@
         </li>
     </ul>
     <h3>2. The Transaction Model - The Heart of Commerce</h3>
+    <AdComponent width="full" height="32" />
     <div class="md-code-block md-code-block-light">
         <div class="md-code-block-banner-wrap">
             <div class="md-code-block-banner md-code-block-banner-lite">
@@ -272,6 +280,7 @@
             <p class="ds-markdown-paragraph"><strong>API-Ready</strong>: Models are prepared for JSON responses</p>
         </li>
     </ol>
+    <AdComponent width="full" height="32" />
     <h2>🛠️ Pro Tips for Your Implementation</h2>
     <ol start="1">
         <li>
@@ -328,6 +337,9 @@
          [Next up: Building Robust API Routes &rarr;]
 
         </a>
+
+        <AdComponent width="full" height="32" />
+
     </p>
     <!-- Comments are visible in the HTML source only -->
 </template>

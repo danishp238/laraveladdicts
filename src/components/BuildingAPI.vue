@@ -3,6 +3,7 @@ import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import blogs from '/src/assets/blogs.js'
 import Header from './Header.vue'
+import AdComponent from './AdComponent.vue'
 
 const route = useRoute()
 const router = useRouter()
