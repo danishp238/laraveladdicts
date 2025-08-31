@@ -9,7 +9,7 @@
             <canvas ref="physicsCanvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-0"></canvas>
 
             <!-- Content -->
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <div class="text-center" data-aos="fade-up">
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6">
                         <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
@@ -38,6 +38,14 @@
                         </router-link>
                     </div>
                 </div>
+
+                <div class="mt-12" data-aos="fade-up" data-aos-delay="200">
+                    🔥 Brand New Blogspot resource has launched with all Laravel Insights you may be looking for.
+                     <a href="https://larawell20.blogspot.com" class="text-red-300">
+                        Go check it out🔥
+                     </a>       
+                </div>
+
             </div>
         </section>
 

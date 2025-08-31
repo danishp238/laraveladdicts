@@ -7,6 +7,12 @@
     <article>
         <AdComponent width="full" height="32" />
         <h1>🎨 Building a Stunning Vue.js Authentication Interface with Laravel Backend</h1>
+        <div class="mt-12" data-aos="fade-up" data-aos-delay="200">
+                    🔥 Brand New Blogspot resource has launched with all Laravel Insights you may be looking for.
+                     <a href="https://larawell20.blogspot.com" class="text-red-300">
+                        Go check it out🔥
+                     </a>       
+                </div>
         <p class="ds-markdown-paragraph">Welcome to our hands-on guide where we'll transform your Laravel API into a
             beautiful, functional SaaS application with Vue.js and Tailwind CSS. In this comprehensive tutorial, we'll
             build an authentication system that's both visually appealing and technically robust.</p>

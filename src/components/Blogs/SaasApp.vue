@@ -4,12 +4,18 @@
 
 <template>
 
-    <AdComponent width="full" height="32" />
+    <AdComponent width="728" height="90" />
 
     <h1>🚀 Building a SaaS Backend with Laravel: Crafting Robust Models &amp; Relationships</h1>
     <p class="ds-markdown-paragraph">Welcome, Laravel enthusiasts! Today we're kicking off an exciting journey to build
         a full-stack SaaS application using Vue.js, Tailwind CSS, and Laravel. We're starting with the backend first
         because, as any experienced developer knows, a solid foundation is key to building scalable applications.</p>
+        <div class="mt-12" data-aos="fade-up" data-aos-delay="200">
+                    🔥 Brand New Blogspot resource has launched with all Laravel Insights you may be looking for.
+                     <a href="https://larawell20.blogspot.com" class="text-red-300">
+                        Go check it out🔥
+                     </a>       
+                </div>
     <h2>🔍 What We're Building</h2>
     <p class="ds-markdown-paragraph">Our SaaS app will handle digital product transactions with:</p>
     <ul>
@@ -113,7 +119,7 @@
         </li>
     </ul>
     <h3>2. The Transaction Model - The Heart of Commerce</h3>
-    <AdComponent width="full" height="32" />
+    <AdComponent width="728" height="90" />
     <div class="md-code-block md-code-block-light">
         <div class="md-code-block-banner-wrap">
             <div class="md-code-block-banner md-code-block-banner-lite">
@@ -280,7 +286,7 @@
             <p class="ds-markdown-paragraph"><strong>API-Ready</strong>: Models are prepared for JSON responses</p>
         </li>
     </ol>
-    <AdComponent width="full" height="32" />
+    <AdComponent width="728" height="90" />
     <h2>🛠️ Pro Tips for Your Implementation</h2>
     <ol start="1">
         <li>
@@ -338,8 +344,13 @@
 
         </a>
 
-        <AdComponent width="full" height="32" />
+        <AdComponent width="728" height="90" />
 
+    </p>
+
+    <p>
+        I rely on Advertisements, so if you want to support me click the link below and it will take you to a relevant ad
+        <a href="https://www.effectivecpmrate.com/s6mb2r7xyh?key=bc1c59f8fbb2c920ce6d2638bd6d6aed">Link to Advertisement</a>
     </p>
     <!-- Comments are visible in the HTML source only -->
 </template>

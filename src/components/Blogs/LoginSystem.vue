@@ -6,6 +6,12 @@
     <AdComponent width="full" height="32" />
     <article>
         <h1>🔐 Building a Secure Authentication System in Laravel: From Routes to Tokens</h1>
+        <div class="mt-12" data-aos="fade-up" data-aos-delay="200">
+                    🔥 Brand New Blogspot resource has launched with all Laravel Insights you may be looking for.
+                     <a href="https://larawell20.blogspot.com" class="text-red-300">
+                        Go check it out🔥
+                     </a>       
+                </div>
         <p class="ds-markdown-paragraph">Welcome back, Laravel warriors! In our last installment, we set up our core
             models. Today, we're diving into the exciting world of authentication - the gateway to your SaaS
             application. We'll build a robust auth system with email verification, token-based authentication, and
