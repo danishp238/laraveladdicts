@@ -95,7 +95,7 @@ onBeforeUnmount(() => {
   <header class="fixed w-full z-50 transition-all duration-300"
     :class="{ 'bg-white/90 shadow-md backdrop-blur-sm py-2': scrolled, 'bg-transparent py-4': !scrolled }"
     data-aos="fade-down">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between">
         <!-- Logo with animation -->
         <div class="flex items-center space-x-2" @mouseenter="animateLogo">
@@ -146,8 +146,8 @@ onBeforeUnmount(() => {
 
     <!-- Mobile menu -->
     <div
-      class="md:hidden bg-white shadow-lg absolute top-full left-0 right-0 overflow-hidden transition-all duration-300 ease-in-out"
-      :class="{ 'max-h-0': !mobileMenuOpen, 'max-h-96 py-4': mobileMenuOpen }">
+  class="md:hidden bg-white shadow-lg absolute top-full left-0 right-0 overflow-hidden transition-all duration-300 ease-in-out z-[999]" 
+  :class="{ 'max-h-0': !mobileMenuOpen, 'max-h-96 py-4': mobileMenuOpen }">
       <div class="container mx-auto px-4">
         <div class="flex flex-col space-y-4">
           <!-- Mobile Menu -->

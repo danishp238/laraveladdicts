@@ -52,21 +52,21 @@ const relatedBlogs = computed(() => blog.value?.related || [])
 <template>
   <Header></Header>
 
-    <div class="w-1/2 mx-auto pt-32">
+    <div class="w-full md:w-1/2 mx-auto pt-32">
       <h1 class="text-3xl text-center md:text-3xl font-bold">{{ blog.title }}</h1>
     </div>
 
     <!-- BLOG CONTENT -->
-    <div class="w-1/2 mx-auto pt-32">
+    <div class="w-full md:w-1/2 mx-auto px-5 pt-32">
       <img :src="blog.image" alt="Cover Image" class="mx-auto mb-4" />
       </div>
 
       <!-- Blog Content -->
       <!-- <div v-html="blog.content" ref="htmlNavigation"></div> -->
-      <div class="w-1/2 mx-auto pt-6">
+      <div class="w-full md:w-1/2 mx-auto px-5 pt-6">
         <component v-if="blog.component" :is="blog.component" />
       </div>
-      
+        
       <!-- RELATED BLOGS -->
       <div v-if="relatedBlogs.length" class="mt-20 border-t border-white/20 pt-10">
         <h2 class="text-2xl font-semibold text-white text-center mb-6">Must Reads for Those Who Enjoyed This Blog</h2>
@@ -104,3 +104,14 @@ const relatedBlogs = computed(() => blog.value?.related || [])
   </div>
   <Footer></Footer>
 </template>
+
+<style>
+/* Code blocks should scroll inside themselves */
+pre, code {
+  white-space: pre;       /* don’t wrap code */
+  overflow-x: auto;       /* horizontal scroll only inside block */
+  display: block;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on mobile */
+  max-width: 100%;        /* never exceed container */
+}
+</style>
