@@ -1,10 +1,8 @@
 <script setup>
-    import AdComponent from '../AdComponent.vue'
 </script>
 
 <template>
 
-    <AdComponent width="728" height="90" />
 
     <h1>🚀 Building a SaaS Backend with Laravel: Crafting Robust Models &amp; Relationships</h1>
     <p class="ds-markdown-paragraph">Welcome, Laravel enthusiasts! Today we're kicking off an exciting journey to build
@@ -119,7 +117,6 @@
         </li>
     </ul>
     <h3>2. The Transaction Model - The Heart of Commerce</h3>
-    <AdComponent width="728" height="90" />
     <div class="md-code-block md-code-block-light">
         <div class="md-code-block-banner-wrap">
             <div class="md-code-block-banner md-code-block-banner-lite">
@@ -286,7 +283,6 @@
             <p class="ds-markdown-paragraph"><strong>API-Ready</strong>: Models are prepared for JSON responses</p>
         </li>
     </ol>
-    <AdComponent width="728" height="90" />
     <h2>🛠️ Pro Tips for Your Implementation</h2>
     <ol start="1">
         <li>
@@ -344,7 +340,6 @@
 
         </a>
 
-        <AdComponent width="728" height="90" />
 
     </p>
 

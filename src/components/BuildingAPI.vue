@@ -3,7 +3,7 @@ import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import blogs from '/src/assets/blogs.js'
 import Header from './Header.vue'
-import AdComponent from './AdComponent.vue'
+import Footer from './Footer.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -52,6 +52,10 @@ const relatedBlogs = computed(() => blog.value?.related || [])
 <template>
   <Header></Header>
 
+    <div class="w-1/2 mx-auto pt-32">
+      <h1 class="text-3xl text-center md:text-3xl font-bold">{{ blog.title }}</h1>
+    </div>
+
     <!-- BLOG CONTENT -->
     <div class="w-1/2 mx-auto pt-32">
       <img :src="blog.image" alt="Cover Image" class="mx-auto mb-4" />
@@ -98,4 +102,5 @@ const relatedBlogs = computed(() => blog.value?.related || [])
       </div>
     </div>
   </div>
+  <Footer></Footer>
 </template>

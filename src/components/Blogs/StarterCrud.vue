@@ -1,15 +1,11 @@
 <script setup>
-    import AdComponent from '../AdComponent.vue'
 </script>
 
 <template>
 
-    <AdComponent width="full" height="32" />
-
     <section class="hero-gradient text-white py-20">
         <div class="" data-aos="fade-up">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">Best Starter For Every Laravel Beginner: A Basic Yet
-                Powerful CRUD App</h1>
+            
             <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">A beginner-friendly guide to creating your first
                 Laravel application with create, read, update, and delete functionality.</p>
             <div class="flex justify-center space-x-4">
@@ -82,8 +78,6 @@
                         <li>Install <span class="font-semibold">Laravel</span> via Composer</li>
                     </ul>
                 </div>
-
-                <AdComponent width="full" height="32" />
 
                 <div class="mb-8" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="text-xl font-semibold mb-4 text-indigo-600 flex items-center">
@@ -219,7 +213,6 @@ class DataController extends Controller
     }
 }</pre>
                     </div>
-                    <AdComponent width="full" height="32" />
                     <div class="bg-green-50 p-4 rounded-lg border border-green-200">
                         <h4 class="font-semibold text-green-800 mb-2 flex items-center">
                             <i class="fas fa-code mr-2"></i>
@@ -360,41 +353,8 @@ class Data extends Model
             <h2 class="text-3xl font-bold mb-6">Congratulations! 🎉</h2>
             <p class="text-xl mb-8 max-w-3xl mx-auto">You've just built a complete CRUD application with Laravel! This
                 foundation can be expanded to build more complex applications.</p>
-            <div class="flex justify-center space-x-4 mb-8">
-                <a href=""
-                    class="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition">Next
-                    Tutorial</a>
-            </div>
-
-            <AdComponent width="full" height="32" />
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <h3 class="text-2xl font-bold">LaraBlog</h3>
-                    <p class="text-gray-400 mt-2">Making Laravel accessible for beginners</p>
-                </div>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-twitter text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-linkedin text-xl"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 LaraBlog. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 </template>
 
 <style scoped>

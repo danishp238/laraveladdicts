@@ -3,6 +3,9 @@
 
     <div class="relative overflow-hidden">
         <!-- Main Banner -->
+        <!-- cookies -->
+        <CookieConsent></CookieConsent>
+
         <section
             class="relative h-screen min-h-[600px] flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50 overflow-hidden">
             <!-- Physics canvas -->
@@ -76,8 +79,11 @@
                                 <span class="mx-2">•</span>
                                 <span>{{ blog.date }}</span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-3 text-gray-800">
-                                    {{ blog.title }}        
+                            <h3 class="text-xl font-semibold mb-3 text-gray-800 hover:text-blue-500">
+                                <router-link :to="`/blog/${blog.slug}`">
+                                    {{ blog.title }}
+                                </router-link>
+                                            
                             </h3>
                             <p class="text-gray-600 mb-4">{{ blog.excerpt }}</p>
                             <a :href="blog.link"
@@ -101,6 +107,9 @@
             </div>
         </section>
     </div>
+
+    <Footer></Footer>
+
 </template>
 
 <script setup>
@@ -112,6 +121,8 @@ import 'aos/dist/aos.css';
 import blogDescriptions from '/src/assets/blog-descriptions.js'
 import { useRouter } from 'vue-router'
 import Header from './Header.vue'
+import Footer from './Footer.vue'
+import CookieConsent from './CookieConsent.vue';
 
 const blog_descriptions = ref(blogDescriptions)
 

@@ -64,6 +64,7 @@
       </section>
     </main>
   </div>
+  <Footer></Footer>
 </template>
 
 <script setup>
@@ -71,6 +72,7 @@ import { onMounted } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
 
 onMounted(() => {
   AOS.init({

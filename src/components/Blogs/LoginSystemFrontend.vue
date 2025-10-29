@@ -1,11 +1,9 @@
 <script setup>
-    import AdComponent from '../AdComponent.vue'
 </script>
 
 <template>
 
     <article>
-        <AdComponent width="full" height="32" />
         <h1>🎨 Building a Stunning Vue.js Authentication Interface with Laravel Backend</h1>
         <div class="mt-12" data-aos="fade-up" data-aos-delay="200">
                     🔥 Brand New Blogspot resource has launched with all Laravel Insights you may be looking for.
@@ -53,7 +51,6 @@
             </li>
         </ul>
         <h2>🏗️ Our Authentication System Architecture</h2>
-        <AdComponent width="full" height="32" />
         <p class="ds-markdown-paragraph">Let's visualize how our components work together:</p>
         <div class="md-code-block md-code-block-dark">
             <div class="md-code-block-banner-wrap">
@@ -154,7 +151,6 @@ User Browser</pre>
         <p class="ds-markdown-paragraph">This creates a dynamic, engaging background that doesn't interfere with
             usability.</p>
         <h3>2. The Tabbed Auth Interface</h3>
-        <AdComponent width="full" height="32" />
         <p class="ds-markdown-paragraph">Our form uses a clean tab system to toggle between login and registration:</p>
         <div class="md-code-block md-code-block-dark">
             <div class="md-code-block-banner-wrap">
@@ -277,7 +273,6 @@ User Browser</pre>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span></pre>
         </div>
         <h2>🔄 Handling Authentication in Vue</h2>
-        <AdComponent width="full" height="32" />
         <p class="ds-markdown-paragraph">The real magic happens in our script section:</p>
         <div class="md-code-block md-code-block-dark">
             <div class="md-code-block-banner-wrap">
@@ -416,7 +411,6 @@ User Browser</pre>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span></pre>
         </div>
         <h2>🚀 Potential Enhancements</h2>
-        <AdComponent width="full" height="32" />
         <p class="ds-markdown-paragraph">Take your authentication system to the next level with these improvements:</p>
         <ol start="1">
             <li>
@@ -579,7 +573,6 @@ User Browser</pre>
         </ul>
         <p class="ds-markdown-paragraph">What authentication features would you like to see next?</p>
     </article>
-    <AdComponent width="full" height="32" />
 </template>
 
 <style scoped>

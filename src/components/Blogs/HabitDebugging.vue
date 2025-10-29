@@ -1,9 +1,7 @@
 <script setup>
-    import AdComponent from '../AdComponent.vue'
 </script>
 
 <template>
-    <AdComponent width="full" height="32" />
 
     <article class="max-w-4xl mx-auto px-4 py-8 font-sans bg-white rounded-xl shadow-sm">
         <!-- Header will be inserted here -->
@@ -125,7 +123,6 @@
                 </table>
             </div>
         </div>
-        <AdComponent width="full" height="32" />
 
         <!-- Implementation -->
         <div class="bg-gray-50 rounded-xl p-8 mb-12">
@@ -199,7 +196,6 @@
             </button>
         </div>
     </article>
-    <AdComponent width="full" height="32" />
 </template>
 
 

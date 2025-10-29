@@ -106,10 +106,10 @@ onBeforeUnmount(() => {
               ref="logoText">L</span>
           </div>
           <router-link :to="'/'">
-          <span
-            class="text-xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Lara<span class="text-gray-800">Well</span>
-          </span>
+            <span
+              class="text-xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              Laravel<span class="text-red-300">Addicts</span>
+            </span>
           </router-link>
         </div>
 
@@ -129,11 +129,11 @@ onBeforeUnmount(() => {
         <!-- CTA and mobile menu button -->
         <div class="flex items-center space-x-4">
           <router-link :to="'/'">
-          <button
-            class="hidden md:block px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-            @mouseenter="animateButton" ref="ctaButton">
-            Start Reading
-          </button>
+            <button
+              class="hidden md:block px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+              @mouseenter="animateButton" ref="ctaButton">
+              Start Reading
+            </button>
           </router-link>
           <button class="md:hidden text-gray-700 focus:outline-none" @click="toggleMobileMenu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,11 +150,16 @@ onBeforeUnmount(() => {
       :class="{ 'max-h-0': !mobileMenuOpen, 'max-h-96 py-4': mobileMenuOpen }">
       <div class="container mx-auto px-4">
         <div class="flex flex-col space-y-4">
-          <a v-for="item in navItems" :key="item.name" :href="item.href"
-            class="text-gray-700 hover:text-indigo-600 font-medium py-2 px-4 rounded hover:bg-gray-50 transition-colors"
-            data-aos="fade-left" :data-aos-delay="100 * navItems.indexOf(item)">
-            {{ item.name }}
-          </a>
+          <!-- Mobile Menu -->
+          <ul v-if="mobileMenuOpen" class="md:hidden flex flex-col space-y-4 p-4">
+            <li v-for="(item, index) in navItems" :key="item.name"
+              class="text-gray-700 hover:text-indigo-600 font-medium">
+              <router-link :to="item.href" @click="mobileMenuOpen = false">
+                {{ item.name }}
+              </router-link>
+            </li>
+          </ul>
+
           <router-link :to="'/'">
             <button
               class="start-button px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg mt-2">
