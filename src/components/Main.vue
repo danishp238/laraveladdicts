@@ -42,13 +42,6 @@
                     </div>
                 </div>
 
-                <div class="mt-12" data-aos="fade-up" data-aos-delay="200">
-                    🔥 Brand New Blogspot resource has launched with all Laravel Insights you may be looking for.
-                     <a href="https://larawell20.blogspot.com" class="text-red-300">
-                        Go check it out🔥
-                     </a>       
-                </div>
-
             </div>
         </section>
 
